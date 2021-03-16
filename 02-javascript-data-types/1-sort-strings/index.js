@@ -13,18 +13,29 @@ export function sortStrings(arr, param = 'asc') {
      }
 
     function compareString(str1, str2){
-        const regexpRus = /[А-яЁё]/i;
+        const languageList = ['ru', 'en'];
 
         const compareOptions = { 
             numeric: true,
             caseFirst: 'upper' 
         };
 
-        if(regexpRus.test(str1)){
-            return str1.localeCompare(str2, 'ru', compareOptions);
-        }else{
-            return str1.localeCompare(str2, 'en', compareOptions);
+        function swap(swapResult){
+            if(param === 'desc'){
+                switch(swapResult){
+                    case 1: 
+                        return -1;
+                    case -1:
+                        return 1;
+                    default:
+                        return 0;
+                }
+            }
+
+            return swapResult;
         }
+
+        return swap(str1.localeCompare(str2, languageList, compareOptions));
     }
 
     if(!Array.isArray(arr))
@@ -34,7 +45,7 @@ export function sortStrings(arr, param = 'asc') {
         case 'asc':
             return resultArray.sort(compareString);;
         case 'desc':
-            return resultArray.sort(compareString).reverse();
+            return resultArray.sort(compareString);
         default:
             throw new SortingException("Неверный параметр сортировки");
     }

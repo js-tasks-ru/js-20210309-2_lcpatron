@@ -26,7 +26,7 @@ export function createGetter(path) {
         function findValue(object, index) {
             for (const [key, value] of Object.entries(object)) {
                 if (typeof object[objectKeys[index]] === 'object') {
-                    let result = findValue(object[objectKeys[index]], index + 1);
+                    const result = findValue(object[objectKeys[index]], index + 1);
 
                     if (result !== undefined) {
                         return result;

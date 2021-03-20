@@ -9,24 +9,24 @@ export function uniq(arr) {
         this.name = "Ошибка функции uniq";
     }
 
-    if(arr === undefined){
+    if (arr === undefined) {
         return [];
     }
 
-    if(!Array.isArray(arr))
+    if (!Array.isArray(arr))
         throw new UniqException("Переданный аргумент не является массивом");
 
-    if(arr.length === 0){
+    if (arr.length === 0) {
         return [];
     }
 
     let resultArray = [];
-    
+
     arr.forEach((item) => {
-        if(resultArray.indexOf(item) === -1){
+        if (resultArray.indexOf(item) === -1) {
             resultArray.push(item);
         }
-    })
+    });
 
     return resultArray;
 }

@@ -9,7 +9,7 @@ export function invertObj(obj) {
         this.name = "Ошибка функции invertObj";
     }
 
-    if(obj === undefined)
+    if (obj === undefined)
         return undefined;
 
     if (typeof obj !== 'object')
@@ -17,7 +17,7 @@ export function invertObj(obj) {
 
     const result = {};
 
-    for (const [key, value] of Object.entries(obj)){
+    for (const [key, value] of Object.entries(obj)) {
         result[value] = key;
     }
 

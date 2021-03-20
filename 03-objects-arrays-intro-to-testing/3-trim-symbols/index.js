@@ -21,7 +21,7 @@ export function trimSymbols(string, size) {
         throw new TrimSymbolsException("Неверный тип второго аргумента функции trimSymbols");
 
     if (size == 0) {
-        return ""
+        return "";
     }
 
     const length = string.length;
@@ -29,7 +29,7 @@ export function trimSymbols(string, size) {
     let currentSize;
     let currentSymbol;
 
-    for (let i = 0; i < length; ) {
+    for (let i = 0; i < length;) {
         let j = i;
 
         currentSymbol = string[i];

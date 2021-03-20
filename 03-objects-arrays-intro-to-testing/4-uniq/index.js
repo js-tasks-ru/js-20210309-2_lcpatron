@@ -20,7 +20,7 @@ export function uniq(arr) {
         return [];
     }
 
-    let resultArray = [];
+    const resultArray = [];
 
     arr.forEach((item) => {
         if (resultArray.indexOf(item) === -1) {

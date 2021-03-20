@@ -6,7 +6,7 @@
 export function createGetter(path) {
     function CreateGetterException(message) {
         this.message = message;
-        this.name = "Ошибка создания геттера";
+        this.name = "Ошибка функции createGetter";
     }
 
     if (typeof path !== 'string')
@@ -21,7 +21,7 @@ export function createGetter(path) {
         }
 
         if (typeof object !== 'object')
-            throw new FindValueException("Неверный параметр функции получения значения");
+            throw new FindValueException("Неверный параметр функции получения значения в объекте");
 
         function findValue(object, index) {
             for (const [key, value] of Object.entries(object)) {

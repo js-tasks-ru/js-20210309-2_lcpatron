@@ -4,17 +4,9 @@
  * @returns {*[]} - the new array with uniq values
  */
 export function uniq(arr) {
-    function UniqException(message) {
-        this.message = message;
-        this.name = "Ошибка функции uniq";
-    }
-
     if (arr === undefined) {
         return [];
     }
-
-    if (!Array.isArray(arr))
-        throw new UniqException("Переданный аргумент не является массивом");
 
     if (arr.length === 0) {
         return [];
@@ -23,7 +15,7 @@ export function uniq(arr) {
     const resultArray = [];
 
     arr.forEach((item) => {
-        if (resultArray.indexOf(item) === -1) {
+        if (!resultArray.includes(item)) {
             resultArray.push(item);
         }
     });

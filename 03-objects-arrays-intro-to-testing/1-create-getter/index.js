@@ -4,36 +4,14 @@
  * @returns {function} - function-getter which allow get value from object by set path
  */
 export function createGetter(path) {
-    function CreateGetterException(message) {
-        this.message = message;
-        this.name = "Ошибка функции createGetter";
-    }
-
-    if (typeof path !== 'string')
-        throw new CreateGetterException("Неверный параметр функции createGetter");
-
     const objectKeys = path.split('.');
 
     return function (object) {
-        function FindValueException(message) {
-            this.message = message;
-            this.name = "Ошибка поиска значения в объекте";
-        }
-
-        if (typeof object !== 'object')
-            throw new FindValueException("Неверный параметр функции получения значения в объекте");
-
         function findValue(object, index) {
-            for (const [key, value] of Object.entries(object)) {
-                if (typeof object[objectKeys[index]] === 'object') {
-                    const result = findValue(object[objectKeys[index]], index + 1);
-
-                    if (result !== undefined) {
-                        return result;
-                    }
-                } else if (key === objectKeys[index]) {
-                    return value;
-                }
+            if (typeof object[objectKeys[index]] === 'object') {
+                return findValue(object[objectKeys[index]], index + 1);
+            } else{
+                return object[objectKeys[index]];
             }
         }
 

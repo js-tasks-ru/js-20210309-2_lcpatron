@@ -27,7 +27,7 @@ export default class ColumnChart {
   createColumnChart() {
     this.columnChart = document.createElement('div');
     this.columnChart.className = 'column-chart';
-    this.columnChart.style = '--chart-height: 50';
+    this.columnChart.style = `--chart-height: ${this.chartHeight}`;
   }
 
   createColumnChartLink() {

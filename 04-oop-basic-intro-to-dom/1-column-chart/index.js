@@ -1,11 +1,14 @@
 export default class ColumnChart {
-  constructor(props) {
-    const { data = [], label = '', value = 0, link = '' } = (props !== undefined) ? props : {};
-
+  constructor({
+    data = [],
+    label = '',
+    link = '',
+    value = 0
+  } = {}) {
     this.data = data;
     this.label = label;
-    this.value = value;
     this.link = link;
+    this.value = value;
     this.chartHeight = 50;
 
     this.render();

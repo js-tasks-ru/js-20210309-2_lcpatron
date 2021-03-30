@@ -16,7 +16,6 @@ export default class SortableTable {
 
     createHeader(){
         const header = document.createElement('div');
-
         header.className = 'sortable-table__header sortable-table__row';
         header.setAttribute('data-element', 'header');
 
@@ -25,7 +24,6 @@ export default class SortableTable {
 
     createBody(){
         const body = document.createElement('div');
-
         body.className = 'sortable-table__body';
         body.setAttribute('data-element', 'body');
 
@@ -99,7 +97,7 @@ export default class SortableTable {
 
             const compareOptions = {
                 numeric: true,
-                caseFirst: 'upper',
+                caseFirst: 'upper'
             };
 
             function swap(swapResult) {
@@ -143,10 +141,16 @@ export default class SortableTable {
 
     changeHeader(){
         this.subElements.header.innerHTML = this.getHeader();
+        const header = document.querySelector('.sortable-table__header');
+
+        header.innerHTML = this.subElements.header.innerHTML;
     }
 
     changeBody(){
         this.subElements.body.innerHTML = this.getBody();
+        const body = document.querySelector('.sortable-table__body');
+
+        body.innerHTML = this.subElements.body.innerHTML;
     }
 
     getTemplate() {
@@ -176,6 +180,9 @@ export default class SortableTable {
         element.innerHTML = this.getTemplate();
 
         this.element = element.firstElementChild;
+    }
+
+    initEventListeners() {
     }
 
     remove() {

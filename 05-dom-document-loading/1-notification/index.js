@@ -1,21 +1,12 @@
 export default class NotificationMessage {
     static visible = false;
 
-    static isVisible(){
-        return NotificationMessage.visible;
-    }
-
-    static setVisible(visible){
-        NotificationMessage.visible = visible;
-    }
-
     constructor(message = 'Hello world!', { duration, type } = {}) {
         this.message = message;
         this.duration = duration;
         this.type = type;
 
         this.render();
-        this.initEventListeners();
     }
 
     getDurationInSec(duration) {
@@ -44,26 +35,19 @@ export default class NotificationMessage {
         this.element = element.firstElementChild;
     }
 
-    show(renderingElement = undefined) {
-        if (!NotificationMessage.isVisible()) {
-            NotificationMessage.setVisible(true);
+    show(renderingElement = document.body) {
+        if (!NotificationMessage.visible) {
+            NotificationMessage.visible = true;
         }else{
             document.querySelector('.notification').remove();
         }
         
-        if (renderingElement !== undefined) {
-            renderingElement.append(this.element);
-        } else {
-            document.body.append(this.element);
-        }
+        renderingElement.append(this.element);
 
         setTimeout(() => {
             this.remove();
-            NotificationMessage.setVisible(false);
+            NotificationMessage.visible = false;
         }, this.duration);
-    }
-
-    initEventListeners() {
     }
 
     remove() {

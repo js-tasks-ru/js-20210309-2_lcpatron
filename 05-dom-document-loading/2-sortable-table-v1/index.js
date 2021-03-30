@@ -24,6 +24,7 @@ export default class SortableTable {
 
     createBody(){
         const body = document.createElement('div');
+
         body.className = 'sortable-table__body';
         body.setAttribute('data-element', 'body');
 
@@ -97,7 +98,7 @@ export default class SortableTable {
 
             const compareOptions = {
                 numeric: true,
-                caseFirst: 'upper'
+                caseFirst: 'upper',
             };
 
             function swap(swapResult) {
@@ -180,9 +181,6 @@ export default class SortableTable {
         element.innerHTML = this.getTemplate();
 
         this.element = element.firstElementChild;
-    }
-
-    initEventListeners() {
     }
 
     remove() {

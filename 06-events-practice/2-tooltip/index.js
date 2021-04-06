@@ -30,8 +30,10 @@ class Tooltip {
     }
 
     positionate(positionX, positionY) {
-        this.element.style.left = positionX + 'px';
-        this.element.style.top = positionY + 'px';
+        const shift = 10;
+
+        this.element.style.left = positionX + shift + 'px';
+        this.element.style.top = positionY + shift + 'px';
     }
 
     show(event) {

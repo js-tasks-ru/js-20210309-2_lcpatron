@@ -2,52 +2,53 @@ class Tooltip {
     static instance;
 
     visible = false;
+    tooltipText = "";
 
     constructor() {
-        this.tooltipText = "";
-
         this.initEventListner();
     }
 
-    getTooltip(tooltipText){
+    getTemplate() {
         return `
-            <div class="tooltip">${tooltipText}</div>
+            <div class="tooltip">${this.tooltipText}</div>
         `;
     }
 
-    render(tooltipText = '', tooltipX = undefined, tooltipY = undefined) {
+    render(tooltipX, tooltipY) {
         const wrapper = document.createElement('div');
 
-        wrapper.innerHTML = this.getTooltip(tooltipText);
+        wrapper.innerHTML = this.getTemplate();
 
         const element = wrapper.firstElementChild;
 
         this.element = element;
         this.element.hidden = this.visible;
+
         this.positionate(tooltipX, tooltipY);
 
         document.body.appendChild(this.element);
     }
 
-    positionate(positionX, positionY){
+    positionate(positionX, positionY) {
         this.element.style.left = positionX + 'px';
         this.element.style.top = positionY + 'px';
     }
 
     show(event) {
-        let tooltip = document.querySelector('.tooltip');
+        const tooltip = document.querySelector('.tooltip');
 
-        if(tooltip) {
+        if (tooltip) {
             this.visible = true;
             return;
         }
 
         this.visible = false;
-        this.render(event.target.dataset.tooltip, event.clientX, event.clientY);
+        this.tooltipText = event.target.dataset.tooltip;
+        this.render(event.clientX, event.clientY);
     }
 
-    initialize(){
-        if(Tooltip.instance){
+    initialize() {
+        if (Tooltip.instance) {
             return Tooltip.instance;
         }
 
@@ -59,7 +60,7 @@ class Tooltip {
     hide(event) {
         let tooltip = document.querySelector('.tooltip');
 
-        if(!tooltip) {
+        if (!tooltip) {
             this.visible = false;
             return this;
         }
@@ -69,28 +70,34 @@ class Tooltip {
         tooltip.remove();
     }
 
+    onPointerMove(event) {
+        this.positionate(event.clientX, event.clientY);
+    }
+
+    onPointerOver(event) {
+        if (event.target.dataset.tooltip != undefined) {
+            this.show(event);
+            event.target.addEventListener('pointermove', this.onPointerMove.bind(this));
+        }
+    }
+
+    onPointerOut(event) {
+        if (event.target.dataset.tooltip !== undefined) {
+            event.target.removeEventListener('pointermove', this.onPointerMove.bind(this));
+            this.hide();
+        }
+    }
+
     initEventListner() {
-        document.addEventListener('pointerover', (event) => {
-            if (event.target.dataset.tooltip != undefined) {
-                this.show(event);
-            }
-        });
-
-        document.addEventListener('pointerout', (event) => {
-            if (event.target.dataset.tooltip != undefined) {
-                this.hide();
-            }
-        });
-
-        document.addEventListener('pointermove', (event) => {
-            if (event.target.dataset.tooltip != undefined) {
-                this.positionate(event.clientX, event.clientY);
-            }
-        });
+        document.addEventListener('pointerover', this.onPointerOver.bind(this));
+        document.addEventListener('pointerout', this.onPointerOut.bind(this));
     }
 
     destroy() {
-        this.element.remove()
+        this.element.remove();
+
+        document.removeEventListener('pointerover', this.onPointerOver.bind(this));
+        document.removeEventListener('pointerout', this.onPointerOut.bind(this));
     }
 }
 

@@ -192,8 +192,7 @@ export default class SortableTable {
         this.sortOnServer(this.sorted.id, this.sorted.order);
       });
     });
-
-    // Detect when scrolled to bottom.
+    
     document.addEventListener('scroll', this.onNewDataLoad.bind(this));
   }
 
